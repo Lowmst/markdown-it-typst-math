@@ -1,8 +1,14 @@
 {
-  "name": "markdown-it-typst-math",
+  "name": "@lowmst/markdown-it-typst-math",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "license": "MIT",
+  "author": "lowmst",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lowmst/markdown-it-typst-math"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
