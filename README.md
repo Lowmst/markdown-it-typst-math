@@ -23,13 +23,13 @@ Use it in your javascript
 
 ```javascript
 import markdownit from 'markdown-it';
-import mt from 'markdown-it-typst-math';
+import mt from '@lowmst/markdown-it-typst-math';
 
 const md = markdownit();
 md.use(mt);
 ```
 
-Import CSS `'markdown-it-typst-math/dist/index.css'`
+Import CSS `'@lowmst/markdown-it-typst-math/dist/index.css'`
 
 ## Example
 
