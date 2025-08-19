@@ -41,4 +41,4 @@ Import CSS `'markdown-it-typst-math/dist/index.css'`
 - Block $$integral_a^b f(x)upright(d)x=lim_(lambda->0)sum_(i=1)^n f(xi_i)Delta x_i$$
 ```
 
-![](image\example.png)
+![image](image/example.png)
