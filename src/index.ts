@@ -27,7 +27,9 @@ function render(typ: string, mode: string) {
         dom('svg').attr('style', style + 'display:inline');
         return dom.html('svg');
     } else {
-        return `<p>${dom.html('svg')}</p>`;
+        const style = dom('svg').attr('style');
+        dom('svg').attr('style', style + 'margin:16px auto');
+        return dom.html('svg');
     }
 }
 
