@@ -1,6 +1,5 @@
 {
   "name": "@lowmst/markdown-it-typst-math",
-  "private": true,
   "version": "0.0.1",
   "type": "module",
   "license": "MIT",
@@ -9,6 +8,7 @@
     "type": "git",
     "url": "https://github.com/Lowmst/markdown-it-typst-math"
   },
+  "description": "Markdown It plugin that adds Typst math equation rendering",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
