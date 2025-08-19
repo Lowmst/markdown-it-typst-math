@@ -1,8 +1,4 @@
-.typst-text {
-    pointer-events: bounding-box;
-}
-.tsel span,
-.tsel {
+.tsel span, .tsel {
     left: 0;
     position: fixed;
     text-align: justify;
@@ -13,67 +9,19 @@
     color: transparent;
     white-space: pre;
 }
-.tsel span::-moz-selection,
-.tsel::-moz-selection {
+.tsel span::-moz-selection, .tsel::-moz-selection {
     color: transparent;
     background: #7db9dea0;
 }
-.tsel span::selection,
-.tsel::selection {
+.tsel span::selection, .tsel::selection {
     color: transparent;
     background: #7db9dea0;
 }
-.pseudo-link {
-    fill: transparent;
-    cursor: pointer;
-    pointer-events: all;
-}
-svg {
-    fill: none;
-}
-.outline_glyph path,
-path.outline_glyph {
-    fill: var(--glyph_fill);
-    stroke: var(--glyph_stroke);
-}
-.outline_glyph path,
-path.outline_glyph {
-    transition: 0.2s fill stroke;
-}
-.hover .typst-text {
-    --glyph_fill: #66bab7;
-    --glyph_stroke: #66bab7;
-}
-.typst-jump-ripple,
-.typst-debug-react-ripple {
-    width: 0;
-    height: 0;
-    background-color: transparent;
-    position: absolute;
-    border-radius: 50%;
-}
-.typst-jump-ripple {
-    border: 1px solid #66bab7;
-}
-.typst-debug-react-ripple {
-    border: 1px solid #cb1b45;
-}
-@keyframes typst-jump-ripple-effect {
-    to {
-        width: 10vw;
-        height: 10vw;
-        opacity: 0.01;
-        margin: -5vw;
+.typst-doc path {
+    --light-text: black;
+    --dark-text: white;
+    fill: var(--vp-c-text-1, var(--light-text));
+    @media (prefers-color-scheme: dark) {
+        fill: var(--vp-c-text-1, var(--dark-text));
     }
-}
-@keyframes typst-debug-react-ripple-effect {
-    to {
-        width: 3vw;
-        height: 3vw;
-        opacity: 0.01;
-        margin: -1.5vw;
-    }
-}
-.dark .typst-doc path {
-    fill: #dfdfd6;
 }
