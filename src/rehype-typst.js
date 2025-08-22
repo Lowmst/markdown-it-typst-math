@@ -79,7 +79,7 @@ export default function rehypeTypst(options) {
       let result;
 
       try {
-        result = renderToSVGString(value, displayMode);
+        result = renderToSVGString(value, displayMode, (settings.injection || ''));
       } catch (error) {
         const cause = /** @type {Error} */ (error);
         file.message('Could not render math with typst', {
@@ -135,9 +135,9 @@ export default function rehypeTypst(options) {
  */
 let compilerIns;
 
-function renderToSVGString(code, displayMode) {
+function renderToSVGString(code, displayMode, injection) {
   const $typst = (compilerIns ||= NodeCompiler.create());
-  const res = renderToSVGString_($typst, code, displayMode);
+  const res = renderToSVGString_($typst, code, displayMode, injection);
   $typst.evictCache(10);
   return res;
 }
@@ -147,10 +147,10 @@ function renderToSVGString(code, displayMode) {
  * @param {NodeCompiler} $typst
  * @returns
  */
-function renderToSVGString_($typst, code, displayMode) {
+function renderToSVGString_($typst, code, displayMode, injection) {
   const inlineMathTemplate = `
 #set page(height: auto, width: auto, margin: 0pt)
-
+${injection}
 #let s = state("t", (:))
 
 #let pin(t) = context {
@@ -170,7 +170,7 @@ $pin("l1")${code}$
 `;
   const displayMathTemplate = `
 #set page(height: auto, width: auto, margin: 0pt)
-
+${injection}
 $ ${code} $
 `;
   const mainFileContent = displayMode ? displayMathTemplate : inlineMathTemplate;

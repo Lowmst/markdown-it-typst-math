@@ -17,11 +17,19 @@
     color: transparent;
     background: #7db9dea0;
 }
-.typst-doc path {
+.typst-doc path.outline_glyph {
     --light-text: black;
     --dark-text: white;
     fill: var(--vp-c-text-1, var(--light-text));
     @media (prefers-color-scheme: dark) {
         fill: var(--vp-c-text-1, var(--dark-text));
+    }
+}
+.typst-doc path.typst-shape {
+    --light-text: black;
+    --dark-text: white;
+    stroke: var(--vp-c-text-1, var(--light-text));
+    @media (prefers-color-scheme: dark) {
+        stroke: var(--vp-c-text-1, var(--dark-text));
     }
 }

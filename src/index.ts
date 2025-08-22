@@ -12,10 +12,10 @@ import {
     inlineMathBlock
 } from "./ruler.ts";
 
-function render(typ: string, mode: string) {
+function render(typ: string, mode: string, injection: string | undefined) {
     const result = unified()
         .use(rehypeParse, {fragment: true})
-        .use(rehypeTypst)
+        .use(rehypeTypst, {injection: injection})
         .use(rehypeStringify)
         .processSync(`<code class="math-${mode}">${typ}</code>`);
 
@@ -34,7 +34,7 @@ function render(typ: string, mode: string) {
 }
 
 
-interface MarkdownKatexOptions {
+interface MarkdownTypstOptions {
     /**
      * Enable rendering of `$$` match blocks inside of html elements.
      */
@@ -60,12 +60,15 @@ interface MarkdownKatexOptions {
      * Controls if an exception is thrown on katex errors.
      */
     readonly throwOnError?: boolean;
+
+    readonly typstInjection?: string;
 }
 
-export default function (md: MarkdownIt, options?: MarkdownKatexOptions) {
+export default function (md: MarkdownIt, options?: MarkdownTypstOptions) {
     const enableMathBlockInHtml = options?.enableMathBlockInHtml;
     const enableMathInlineInHtml = options?.enableMathInlineInHtml;
     const enableFencedBlocks = options?.enableFencedBlocks;
+    const typstInjection = options?.typstInjection;
 
     // #region Parsing
     md.inline.ruler.after('escape', 'math_inline', inlineMath);
@@ -98,15 +101,15 @@ export default function (md: MarkdownIt, options?: MarkdownKatexOptions) {
     // #region Rendering
     md.renderer.rules.math_inline = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'inline');
+        return render(token.content, 'inline', typstInjection);
     };
     md.renderer.rules.math_inline_block = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'display');
+        return render(token.content, 'display', typstInjection);
     };
     md.renderer.rules.math_block = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'display');
+        return render(token.content, 'display', typstInjection);
     };
 
     if (enableFencedBlocks) {
@@ -116,7 +119,7 @@ export default function (md: MarkdownIt, options?: MarkdownKatexOptions) {
         md.renderer.rules.fence = function (tokens: Token[], idx: number, options, env, self) {
             const token = tokens[idx];
             if (token.info.trim().toLowerCase() === mathLanguageId && enableFencedBlocks) {
-                return render(token.content, 'display') + '\n';
+                return render(token.content, 'display', typstInjection) + '\n';
             } else {
                 return originalFenceRenderer?.call(this, tokens, idx, options, env, self) || '';
             }
