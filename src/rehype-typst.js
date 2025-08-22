@@ -150,7 +150,7 @@ function renderToSVGString(code, displayMode) {
 function renderToSVGString_($typst, code, displayMode) {
   const inlineMathTemplate = `
 #set page(height: auto, width: auto, margin: 0pt)
-#set text(size: 12pt)
+
 #let s = state("t", (:))
 
 #let pin(t) = context {
@@ -170,7 +170,7 @@ $pin("l1")${code}$
 `;
   const displayMathTemplate = `
 #set page(height: auto, width: auto, margin: 0pt)
-#set text(size: 12pt)
+
 $ ${code} $
 `;
   const mainFileContent = displayMode ? displayMathTemplate : inlineMathTemplate;
