@@ -15,7 +15,8 @@ $ ${code} $
         const compileResult = compiler.compile({mainFileContent: template});
         const document = compileResult.result;
         if (!document) {
-            return '';
+            const error = compiler.fetchDiagnostics(compileResult.takeDiagnostics()!)[0].message;
+            return `<pre style="color: red">${error}</pre>`;
         }
         const svg = compiler.svg(document);
         const dom = cheerio.load(svg);
@@ -50,7 +51,8 @@ $pin("l1")${code}$
         const compileResult = compiler.compile({mainFileContent: template});
         const document = compileResult.result;
         if (!document) {
-            return '';
+            const error = compiler.fetchDiagnostics(compileResult.takeDiagnostics()!)[0].message;
+            return `<pre style="color: red">${error}</pre>`;
         }
         const svg = compiler.svg(document);
         const query = compiler.query(document, { selector: '<label>' });
