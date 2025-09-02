@@ -27,6 +27,7 @@ $ ${code} $
         dom('svg').prop('style', 'display: block; margin: 16px auto');
         dom('style').remove();
 
+        compiler.evictCache(10);
         return dom.html('svg');
 
     } else {
@@ -64,6 +65,7 @@ $pin("l1")${code}$
         dom('svg').prop('style', `display: inline; vertical-align: -${shift / defaultEm}em;`);
         dom('style').remove();
 
+        compiler.evictCache(10);
         return dom.html('svg');
     }
 }
