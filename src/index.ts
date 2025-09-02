@@ -1,8 +1,4 @@
-import rehypeTypst from './rehype-typst';
-import rehypeParse from 'rehype-parse';
-import rehypeStringify from 'rehype-stringify';
-import {unified} from 'unified';
-import * as cheerio from 'cheerio';
+import render from "./render.ts";
 import type MarkdownIt from 'markdown-it';
 import type Token from "markdown-it/lib/token.d.mts";
 import {
@@ -11,28 +7,6 @@ import {
     inlineMath,
     inlineMathBlock
 } from "./ruler.ts";
-
-function render(typ: string, mode: string, injection: string | undefined) {
-    const result = unified()
-        .use(rehypeParse, {fragment: true})
-        .use(rehypeTypst, {injection: injection})
-        .use(rehypeStringify)
-        .processSync(`<code class="math-${mode}">${typ}</code>`);
-
-    const dom = cheerio.load(result.value);
-    dom('style').remove();
-
-    if (mode === 'inline') {
-        const style = dom('svg').attr('style');
-        dom('svg').attr('style', style + 'display:inline');
-        return dom.html('svg');
-    } else {
-        const style = dom('svg').attr('style');
-        dom('svg').attr('style', style + 'margin:16px auto');
-        return dom.html('svg');
-    }
-}
-
 
 interface MarkdownTypstOptions {
     /**
@@ -101,15 +75,15 @@ export default function (md: MarkdownIt, options?: MarkdownTypstOptions) {
     // #region Rendering
     md.renderer.rules.math_inline = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'inline', typstInjection);
+        return render(token.content, false, typstInjection);
     };
     md.renderer.rules.math_inline_block = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'display', typstInjection);
+        return render(token.content, true, typstInjection);
     };
     md.renderer.rules.math_block = (tokens, idx) => {
         const token = tokens[idx];
-        return render(token.content, 'display', typstInjection);
+        return render(token.content, true, typstInjection);
     };
 
     if (enableFencedBlocks) {
@@ -119,7 +93,7 @@ export default function (md: MarkdownIt, options?: MarkdownTypstOptions) {
         md.renderer.rules.fence = function (tokens: Token[], idx: number, options, env, self) {
             const token = tokens[idx];
             if (token.info.trim().toLowerCase() === mathLanguageId && enableFencedBlocks) {
-                return render(token.content, 'display', typstInjection) + '\n';
+                return render(token.content, true, typstInjection) + '\n';
             } else {
                 return originalFenceRenderer?.call(this, tokens, idx, options, env, self) || '';
             }

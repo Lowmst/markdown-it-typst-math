@@ -1,6 +1,6 @@
 {
   "name": "@lowmst/markdown-it-typst-math",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
   "license": "MIT",
   "author": "lowmst",
@@ -21,13 +21,9 @@
     "vite-plugin-static-copy": "^3.1.1"
   },
   "dependencies": {
-    "@myriaddreamin/rehype-typst": "^0.6.1-rc2",
+    "@myriaddreamin/typst-ts-node-compiler": "^0.6.1-rc3",
     "@types/markdown-it": "^14.1.2",
-    "cheerio": "^1.1.2",
-    "markdown-it": "^14.1.0",
-    "rehype-parse": "^9.0.1",
-    "rehype-stringify": "^10.0.1",
-    "unified": "^11.0.5"
+    "cheerio": "^1.1.2"
   },
   "files": [
     "dist"

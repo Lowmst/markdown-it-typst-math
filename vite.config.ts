@@ -5,14 +5,10 @@ import { viteStaticCopy } from 'vite-plugin-static-copy'
 export default defineConfig({
     build: {
         lib: {
-            entry: ['./src/index.ts', './src/index.css'],
+            entry: ['./src/index.ts'],
             fileName: 'index',
             formats: ['es']
         },
-        rollupOptions: {
-            external: ['@myriaddreamin/rehype-typst', '@myriaddreamin/typst-ts-node-compiler', 'unified', 'rehype-parse', 'rehype-stringify', 'cheerio'],
-        },
-        cssCodeSplit: true,
         ssr: true
     },
     plugins: [dts(), viteStaticCopy({

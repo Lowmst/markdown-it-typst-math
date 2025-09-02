@@ -2,7 +2,7 @@
 
 Markdown It plugin that adds [Typst](https://github.com/typst/typst) rendering for math equations.
 
-It reuses some of the code from [vscode-markdown-it-katex](https://github.com/microsoft/vscode-markdown-it-katex) and uses a sync version of [@myriaddreamin/reyhpe-typst](https://www.npmjs.com/package/@myriaddreamin/rehype-typst) for rendering.
+It references some of the code from [vscode-markdown-it-katex](https://github.com/microsoft/vscode-markdown-it-katex) and [@myriaddreamin/reyhpe-typst](https://www.npmjs.com/package/@myriaddreamin/rehype-typst).
 
 Adapted for VitePress dark mode.
 ## Usage
